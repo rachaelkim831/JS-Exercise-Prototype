@@ -39,14 +39,39 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-  
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
+Person.prototype.eat = function (food){
+  if(this.stomach.length < 10){
+    this.stomach.push(food)
+  }
+}
+Person.prototype.poop = function(){
+  this.stomach = []; 
+}
+Person.prototype.toString = function(){
+  return `${this.name}, ${this.age}`
 }
 
-
-
-
-
+let Rachael = new Person("Rachael", 29)
+Rachael.eat("banana1")
+Rachael.eat("banana2")
+Rachael.eat("banana3")
+Rachael.eat("banana4")
+Rachael.eat("banana5")
+Rachael.eat("banana6")
+Rachael.eat("banana7")
+Rachael.eat("banana8")
+Rachael.eat("banana9")
+Rachael.eat("banana10")
+Rachael.eat("banana11")
+Rachael.eat("banana12")
+Rachael.poop()
+console.log(Rachael.stomach)
+console.log(Rachael.toString())
 
 
 /*
@@ -63,9 +88,19 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
 }
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons
+}
+
+let Honda = new Car("Accord", 50)
+Honda.fill(15)
+console.log(Honda.tank)
 
 
 /*
@@ -75,18 +110,23 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+ Person.call(this, name, age)
+ this.favoriteToy = favoriteToy
+}
+Baby.prototype = Object.create(Person.prototype)
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`
 }
 
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window Binding - if 'this' is not in context to anything, it will return the window; if it's in strict mode, console will return undefined. 
+  2. Implicit Binding - is used when a function within an object is invoked using a dot notation.
+  3. Explicit Binding - occurs when a .call(), .apply(), or bind() is used on a function
+  4. New binding - is when the keyword 'new' is used to create an object from constructor function. 
 */
 
 
